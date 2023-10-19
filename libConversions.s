@@ -27,10 +27,12 @@ SUB sp, #4
 STR lr, [sp, #0]
 STR r4, [sp, #4]
 
-
 # save input value
-MOV  // divide
+MOV r4, r0
 
+# Calculate distance in km
+MOV r1, #161
+BL __aeabi_idiv
  
 # pop and return
 LDR lr, [sp, #0]
@@ -41,41 +43,7 @@ MOV pc, lr
 .data
 #end
 
-.global kph
-# Function: kph
-# Purpose: calculate speed in km / hr 
-# from input integers of hours and miles
-# 
-# Input: 
-#    r0 - time in hours (integer)
-#    r1 - distance in miles
-# 
-#
-# Output: r0 - pointer to string that contains
-# the converted value
-.text
-miles2kilometers:
 
-# push
-SUB sp, #8
-STR lr, [sp, #0]
-STR r4, r0
-MOV r1, #161 // multiplication factor
-
-# convert to km
-MUL r0, r4, r1 // multiply by 161
-MOV r1, #100 // set divisor
-BL __aeabi_idiv // divide
-
- 
-# pop and return
-LDR lr, [sp, #0]
-LDR r4, [sp, #4]
-ADD sp, #8
-MOV pc, lr
-
-.data
-#end
 
 .global kph
 # Function: kph

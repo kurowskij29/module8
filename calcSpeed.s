@@ -20,8 +20,10 @@ BL scanf
 
 
 #Calculate speed
-LDR r0, r1 // put hours in r0 for kph func
-LDR r1, r2 // put miles in r1 ^^
+LDR r0, =hours
+LDR r1, =miles
+LDR r0, [r0] // put hours in r0 for kph func
+LDR r1, [r1] // put miles in r1 ^^
 BL kph
 MOV r1, r0 // put speed in r1 for printf
 
