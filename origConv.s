@@ -9,12 +9,7 @@
 # 
 .global miles2kilometers
 .global kph
-.global inches2ft
-.global c2f
 
-
-
-####################################################################
 # Function: miles2kilometers
 # Purpose: convert an integer from miles
 # to kilometers with conversion ratio
@@ -53,7 +48,7 @@ MOV pc, lr
 #end
 
 
-##############################################################
+
 # Function: kph
 # Purpose: calculate speed in km / hr 
 # from input integers of hours and miles
@@ -97,74 +92,6 @@ MOV pc, lr
 .data
 #end 
 
-###############################################################
-# Function: inches2ft
-# Purpose: convert an integer from inches to feet
-#
-#
-# Input: 
-#    r0 - value in inches
-# 
-#
-# Output: r0 - pointer to string that contains
-# the converted value
-.text
-inches2ft:
-
-# push
-SUB sp, sp, #8
-STR lr, [sp, #0]
-STR r4, [sp, #4]
-
-# save input value
-MOV r4, r0
-
-# Calculate length in ft
-MOV r1, #12
-BL __aeabi_idiv
- 
-# pop and return
-LDR lr, [sp, #0]
-LDR r4, [sp, #4]
-ADD sp, sp, #8
-MOV pc, lr
-
-.data
-#end
 
 
 
-
-##############################################################
-# Function: c2f
-# Purpose: calculate temperature in F from input in C
-# 
-# Input: 
-#    r0 - temp in C
-# 
-#
-# Output: r0 - pointer to string that contains
-# the converted value
-.text
-c2f:
- 
-# push
-SUB sp, sp, #8
-STR lr, [sp, #0]
-STR r4, [sp, #4]
-
-#Convert to fahrenheit
-mov r4, #9      // constant to mult
-mul r0, r0, r4  // multiply C by 9
-mov r1, #5     // second arg to divide must be 5
-bl __aeabi_idiv // then div by 5
-add r0, r0, #32  // last add 32
- 
-# pop and return
-LDR lr, [sp, #0]
-LDR r4, [sp, #4]
-ADD sp, sp, #8
-MOV pc, lr
-
-.data
-#end 
