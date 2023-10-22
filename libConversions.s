@@ -5,6 +5,9 @@
 #
 # Functions:
 # miles2kilometers
+# kph
+# inches2ft
+# c2f
 #
 # 
 .global miles2kilometers
@@ -38,10 +41,10 @@ STR r4, [sp, #4]
 MOV r4, r0
 
 # Calculate distance in km
-MOV r1, #161
-MUL r0, r0, r1
-MOV r1, #100
-BL __aeabi_idiv
+MOV r1, #161    
+MUL r0, r0, r1   // mult by 161
+MOV r1, #100  
+BL __aeabi_idiv   // div by 100 for km
  
 # pop and return
 LDR lr, [sp, #0]
@@ -120,8 +123,8 @@ STR r4, [sp, #4]
 MOV r4, r0
 
 # Calculate length in ft
-MOV r1, #12
-BL __aeabi_idiv
+MOV r1, #12  // put 12 in deniminator
+BL __aeabi_idiv // divide in by 12 to get feet
  
 # pop and return
 LDR lr, [sp, #0]
