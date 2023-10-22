@@ -25,7 +25,7 @@
 miles2kilometers:
 
 # push
-SUB sp, sp, #4
+SUB sp, sp, #8
 STR lr, [sp, #0]
 STR r4, [sp, #4]
 
@@ -34,12 +34,14 @@ MOV r4, r0
 
 # Calculate distance in km
 MOV r1, #161
+MUL r0, r0, r1
+MOV r1, #100
 BL __aeabi_idiv
  
 # pop and return
 LDR lr, [sp, #0]
-#LDR r4, [sp, #4]
-ADD sp, sp, #4
+LDR r4, [sp, #4]
+ADD sp, sp, #8
 MOV pc, lr
 
 .data
@@ -62,7 +64,7 @@ MOV pc, lr
 kph:
  
 # push
-SUB sp, sp, #8
+SUB sp, sp, #12
 STR lr, [sp, #0]
 STR r4, [sp, #4]
 STR r5, [sp, #8]
@@ -82,9 +84,9 @@ BL __aeabi_idiv // km in r0, hours in r1
  
 # pop and return
 LDR lr, [sp, #0]
-#LDR r4, [sp, #4]
-#LDR r5, [sp, #8]
-ADD sp, sp, #8
+LDR r4, [sp, #4]
+LDR r5, [sp, #8]
+ADD sp, sp, #12
 MOV pc, lr
 
 .data
