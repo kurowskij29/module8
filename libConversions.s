@@ -8,6 +8,8 @@
 #
 # 
 .global miles2kilometers
+.global kph
+
 # Function: miles2kilometers
 # Purpose: convert an integer from miles
 # to kilometers with conversion ratio
@@ -23,7 +25,7 @@
 miles2kilometers:
 
 # push
-SUB sp, #4
+SUB sp, sp, #4
 STR lr, [sp, #0]
 STR r4, [sp, #4]
 
@@ -36,8 +38,8 @@ BL __aeabi_idiv
  
 # pop and return
 LDR lr, [sp, #0]
-LDR r4, [sp, #4]
-ADD sp, #8
+#LDR r4, [sp, #4]
+ADD sp, sp, #4
 MOV pc, lr
 
 .data
@@ -45,7 +47,6 @@ MOV pc, lr
 
 
 
-.global kph
 # Function: kph
 # Purpose: calculate speed in km / hr 
 # from input integers of hours and miles
@@ -61,7 +62,7 @@ MOV pc, lr
 kph:
  
 # push
-SUB sp, #8
+SUB sp, sp, #8
 STR lr, [sp, #0]
 STR r4, [sp, #4]
 STR r5, [sp, #8]
@@ -81,9 +82,9 @@ BL __aeabi_idiv // km in r0, hours in r1
  
 # pop and return
 LDR lr, [sp, #0]
-LDR r4, [sp, #4]
-LDR r5, [sp, #8]
-ADD sp, #8
+#LDR r4, [sp, #4]
+#LDR r5, [sp, #8]
+ADD sp, sp, #8
 MOV pc, lr
 
 .data
